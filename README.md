@@ -6,7 +6,7 @@
 
 This project is a website that visualize the evaluation process of the Simply Typed Lambda Calculus under environment model. No dependencies other than a browser is needed since the interpreter is written in TypeScript and then compiled into JavaScript.
 
-The product can be visited at the [Github Pages](https://wunschunreif.github.io/CS383-Visualization/).
+The product can be visited at the [Github Pages](https://wunschunreif.github.io/CS383-Visualization/). The Chrome browser is highly recommended. And bugs have been found about line numbering in the Safari browser.
 
 
 
