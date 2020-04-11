@@ -1,0 +1,53 @@
+.CodePanel {
+    padding: 10px;
+    display: grid;
+    grid-row: 100%;
+    border: black solid 1px;
+    border-radius: 5px;
+    background-color: #f3f3f3a5;
+    height: 70vh;
+    min-height: 30em;
+    width: 35vw;
+    max-width: 40em;
+    justify-self: flex-start;
+    overflow-y: auto;
+    counter-reset: lineno;
+    align-content: flex-start;
+    display: grid;
+    grid-template-columns: 3em 1fr;
+    row-gap: 0;
+    font-family: 'SF mono', 'Courier', monospace;
+    align-items: flex-start;
+}
+
+.CodeEditor {
+    line-height: 1.2em;
+    overflow-x: auto;
+    margin: 3px;
+    min-height: 30em;
+    overflow-y: visible;
+    white-space:nowrap; 
+}
+
+.CodeLineBar {
+    padding-top: 3px;
+    display: inline-grid;
+    grid-template-columns: 1fr;
+}
+
+.CodeLineNo {
+    padding: 0;
+    margin: 0;
+    text-align: right;
+    margin-right: 1ex;
+    line-height: 1.2em;
+    counter-increment: lineno;
+}
+
+.CodeLineNo::before {
+    width: 3em;
+    content: counter(lineno);
+    color: gray;
+}
+
+

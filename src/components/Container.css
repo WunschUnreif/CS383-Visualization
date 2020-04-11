@@ -1,0 +1,18 @@
+.Container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-image: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    background-color: #efefef;
+    position: absolute;
+    width: 100vw;
+    min-height: 100vh;
+    height: fit-content;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+
+    transition: all 0.2s ease-in;
+}
