@@ -66,7 +66,7 @@ var Arith = /** @class */ (function (_super) {
     Arith.OP_ADD = function (a, b) { return a + b; };
     Arith.OP_SUB = function (a, b) { return a - b; };
     Arith.OP_MUL = function (a, b) { return a * b; };
-    Arith.OP_DIV = function (a, b) { return a / b; };
+    Arith.OP_DIV = function (a, b) { return parseInt(a / b); };
     Arith.OP_REM = function (a, b) { return a % b; };
     return Arith;
 }(Expr_1.Expr));
