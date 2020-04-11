@@ -1,22 +1,19 @@
-.Panel:hover {
+/* .Panel:hover {
     box-shadow: 0 0 40px #303030;
     transform: translate(0px, -1px);
     transition: all 0.2s linear ;
 
-}
+} */
 
 .Panel {
     width: fit-content;
     height: fit-content;
     padding: 10px;
     margin: 30px;
-    border-radius: 10px;
-    background-image: linear-gradient(45deg, #f6d365, #fda085);
-    box-shadow: 0 0 15px #3f3f3f;
+    /* border-radius: 10px; */
+    /* background-image: linear-gradient(45deg, #f6d365, #fda085); */
+    background-color: #fefefe;
+    box-shadow: 0 0 2px #3f3f3f;
     transition: all 0.2s linear ;
     counter-increment: which;
-}
-
-.Panel::after {
-    content: attr(width);
 }

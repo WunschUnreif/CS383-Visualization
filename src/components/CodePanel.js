@@ -18,7 +18,10 @@ class CodePanel extends React.Component {
     render() {
         return (
             <Panel>
-                <h3>Simple Typed Lambda</h3>
+                <div className="HeaderRow">
+                    <h3 style={{margin:"auto 1vw"}}>Simply Typed Lambda</h3>
+                    <a className="DocButton" href="https://github.com/WunschUnreif/CS383-Visualization" target="_blank">Docs</a>
+                </div>
                 <div className="CodePanel" onKeyUp={e => this.keyUp(e)}>
                     <CodeLineBar linenum={this.state.linenum}></CodeLineBar>
                     {this.codeeditor.render()}

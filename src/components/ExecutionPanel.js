@@ -37,8 +37,10 @@ class ExecutionPanel extends React.Component {
 
         return (
             <Panel>
-                <Button label="Compile" onClick={e => this.onCompile()}></Button>
-                <Button label="Next"    onClick={e => this.onNext()}></Button>
+                <div className="ButtonRow">
+                    <Button label="Compile" onClick={e => this.onCompile()}></Button>
+                    <Button label="Next"    onClick={e => this.onNext()}></Button>
+                </div>
                 <div className="ExeStackPanel">
                     {infoFrame}
                     {frames}

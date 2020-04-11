@@ -2,8 +2,8 @@
     margin: 0;
     padding: 0;
     display: flex;
-    background-image: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-    background-color: #efefef;
+    /* background-image: linear-gradient(135deg, #a1c4fd, #c2e9fb); */
+    background-color: #e0e0e0;
     position: absolute;
     width: 100vw;
     min-height: 100vh;
@@ -15,4 +15,19 @@
     overflow: hidden;
 
     transition: all 0.2s ease-in;
+}
+
+::-webkit-scrollbar {
+    width : 7px;
+    height: 7px;
+    margin: 3px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    background-color: rgba(50,50,50,.3);
+}
+::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(50,50,50,.1);
+    margin-bottom: 3px;
 }

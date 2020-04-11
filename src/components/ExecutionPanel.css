@@ -1,12 +1,22 @@
+.ButtonRow {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    border-bottom: #00bcd4 solid 1px;
+}
+
 .ExeButton {
     width: 15vw;
-    max-width: 40em;
+    max-width: 60%;
     cursor: pointer;
     text-align: center;
     font-weight: bold;
     line-height: 48px;
-    border-radius: 5px;
-    background-image: linear-gradient( 135deg, #F761A1 10%, rgb(182, 64, 214) 100%);
+    /* border-radius: 5px; */
+    /* background-image: linear-gradient( 135deg, #F761A1 10%, rgb(182, 64, 214) 100%); */
+    background-color: #2196f3;
     margin-bottom: 10px;
     margin-top: 10px;
     margin-left: 1vw;
@@ -14,8 +24,6 @@
     color: #f3f3f3;
     box-shadow: 0 3px 7px #3f3f3f;
     user-select: none;
-
-    display: inline-block;
 
     transition: all 0.1s linear;
 }
@@ -31,8 +39,9 @@
 }
 
 .ExeStackPanel {
-    background-color: #ffffff48;
-    border-radius: 5px;
+    box-shadow: 0 3px 7px #3f3f3f;
+    background-color: #f3f3f3;
+    margin: 1vmin;
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
@@ -40,7 +49,7 @@
     padding: 5px;
     max-height: 40em;
     width: 35vw;
-    min-width: 30em;
+    min-width: 35vw;
     max-width: 35vw;
     height: 70vh;
     overflow: auto;
@@ -50,13 +59,14 @@
 }
 
 .ExeInfoPanel {
-    background-image: linear-gradient( -90deg, rgb(255, 185, 100) 10%, #FCFF00 100%);
+    /* background-image: linear-gradient( -90deg, rgb(255, 185, 100) 10%, #FCFF00 100%); */
+    background-color: #b3e5fc;
     width: 90%;
     height: fit-content;
     padding: 10px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     margin: 5px;
-    box-shadow: 0 0 10px #3f3f3f;
+    box-shadow: 0 1px 2px #3f3f3f;
     font-family: 'SF mono', 'Courier New', monospace;
     overflow-x: auto;
     white-space: nowrap;
@@ -70,22 +80,24 @@
 }
 
 .ExeFramePanel {
-    background-image: linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%);
+    /* background-image: linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%); */
+    background-color: #b2ebf2;
     width: 90%;
     max-width: 90%;
     overflow-x: auto;
     height: fit-content;
     padding: 10px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     margin: 5px;
-    box-shadow: 0 0 10px #3f3f3f;
+    box-shadow: 0 1px 2px #3f3f3f;
     font-family: 'SF mono', 'Courier New', monospace;
 
     transition: all 0.1s linear;
 }
 
 .ExeExprBar {
-    border-bottom: burlywood solid 1.5px;
+    /* border-bottom: burlywood solid 1.5px; */
+    border-bottom: #00bcd4 solid 1px;
     text-align: left;
     color: blue;
     overflow: auto;
@@ -126,5 +138,3 @@
 .EnvValue {
     color: rgb(16, 111, 253)
 }
-
-
