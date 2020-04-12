@@ -15,6 +15,7 @@ import { Not } from "./Not";
 import { Proj } from "./Proj";
 import { Tuple } from "./Tuple";
 import { Cons } from "./Cons";
+import { Fix } from "./Fix";
 
 exports.Abs = Abs;
 exports.App = App;
@@ -35,3 +36,4 @@ exports.Neg = Neg
 exports.Not = Not
 exports.Proj = Proj
 exports.Tuple = Tuple
+exports.Fix = Fix

@@ -15,7 +15,7 @@ export class FunValue extends Value {
     }
 
     toString() {
-        return 'fun(\\' + this.param + '.' + this.expr.toString() + ')';
+        return 'fun(\\' + this.param + '.' + this.expr.copy().toString() + ')';
     }
 
     equal(other : Value) {

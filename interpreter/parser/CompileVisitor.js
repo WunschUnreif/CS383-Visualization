@@ -64,6 +64,12 @@ CompileVisitor.prototype.visitE_not = function(ctx) {
 };
 
 
+// Visit a parse tree produced by TypedLambdaParser#e_fix.
+CompileVisitor.prototype.visitE_fix = function(ctx) {
+  return new Expr.Fix(this.visit(ctx.expr()))
+};
+
+
 // Visit a parse tree produced by TypedLambdaParser#e_case.
 CompileVisitor.prototype.visitE_case = function(ctx) {
   return new Expr.Case(
@@ -93,11 +99,12 @@ CompileVisitor.prototype.visitE_uminus = function(ctx) {
 
 // Visit a parse tree produced by TypedLambdaParser#e_conditional.
 CompileVisitor.prototype.visitE_conditional = function(ctx) {
-  return new Expr.Cond(
+  var e = new Expr.Cond(
     this.visit(ctx.expr(0)),
     this.visit(ctx.expr(1)),
     this.visit(ctx.expr(2))
   )
+  return e;
 };
 
 
@@ -200,6 +207,10 @@ CompileVisitor.prototype.visitE_compare = function(ctx) {
 
   if(op === Lexer.GTE) {
     return new Expr.Compare(lhs, rhs, Expr.Compare.OP_GTE, '>=')
+  }
+
+  if(op === Lexer.EQ) {
+    return new Expr.Eq(lhs, rhs)
   }
 };
 

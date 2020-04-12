@@ -36,6 +36,12 @@ TypedLambdaVisitor.prototype.visitE_not = function(ctx) {
 };
 
 
+// Visit a parse tree produced by TypedLambdaParser#e_fix.
+TypedLambdaVisitor.prototype.visitE_fix = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
 // Visit a parse tree produced by TypedLambdaParser#e_case.
 TypedLambdaVisitor.prototype.visitE_case = function(ctx) {
   return this.visitChildren(ctx);

@@ -14,21 +14,20 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Value_1 = require("./Value");
-var FunValue = /** @class */ (function (_super) {
-    __extends(FunValue, _super);
-    function FunValue(e, x, ex) {
+var FixValue = /** @class */ (function (_super) {
+    __extends(FixValue, _super);
+    function FixValue(e, env) {
         var _this = _super.call(this) || this;
-        _this.env = e;
-        _this.param = x;
-        _this.expr = ex;
+        _this.env = env;
+        _this.expr = e;
         return _this;
     }
-    FunValue.prototype.toString = function () {
-        return 'fun(\\' + this.param + '.' + this.expr.copy().toString() + ')';
+    FixValue.prototype.toString = function () {
+        return 'fix(' + this.expr.toString() + ')';
     };
-    FunValue.prototype.equal = function (other) {
+    FixValue.prototype.equal = function (x) {
         return false;
     };
-    return FunValue;
+    return FixValue;
 }(Value_1.Value));
-exports.FunValue = FunValue;
+exports.FixValue = FixValue;

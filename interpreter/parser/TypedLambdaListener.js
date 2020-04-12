@@ -47,6 +47,15 @@ TypedLambdaListener.prototype.exitE_not = function(ctx) {
 };
 
 
+// Enter a parse tree produced by TypedLambdaParser#e_fix.
+TypedLambdaListener.prototype.enterE_fix = function(ctx) {
+};
+
+// Exit a parse tree produced by TypedLambdaParser#e_fix.
+TypedLambdaListener.prototype.exitE_fix = function(ctx) {
+};
+
+
 // Enter a parse tree produced by TypedLambdaParser#e_case.
 TypedLambdaListener.prototype.enterE_case = function(ctx) {
 };

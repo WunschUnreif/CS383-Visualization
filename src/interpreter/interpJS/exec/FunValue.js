@@ -24,7 +24,7 @@ var FunValue = /** @class */ (function (_super) {
         return _this;
     }
     FunValue.prototype.toString = function () {
-        return 'fun(\\' + this.param + '.' + this.expr.toString() + ')';
+        return 'fun(\\' + this.param + '.' + this.expr.copy().toString() + ')';
     };
     FunValue.prototype.equal = function (other) {
         return false;

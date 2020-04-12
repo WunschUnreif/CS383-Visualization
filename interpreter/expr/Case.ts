@@ -24,7 +24,7 @@ export class Case extends Expr {
     }
 
     copy() {
-        return new Case(this.lst, this.onNil, this.hdName, this.tlName, this.onCons);
+        return new Case(this.lst.copy(), this.onNil.copy(), this.hdName, this.tlName, this.onCons.copy());
     }
 
     typeCheck(e : TypeEnv) {
@@ -72,13 +72,15 @@ export class Case extends Expr {
         var lstval = this.lst.value;
 
         if(lstval instanceof NilValue) {
-            this.exec.expr = this.onNil.copy();
-            this.exec.env = e;
+            this.exec = {
+                expr : this.onNil,
+                env : e
+            }
             stack.pushFrame(this.exec.expr, this.exec.env)
         } else {
             var l = lstval as ConsValue;
             this.exec = {
-                expr : this.onCons.copy(),
+                expr : this.onCons,
                 env : e.with(this.hdName, l.head).with(this.tlName, l.tail)
             }
             stack.pushFrame(this.exec.expr, this.exec.env)

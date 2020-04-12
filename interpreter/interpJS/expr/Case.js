@@ -28,7 +28,7 @@ var Case = /** @class */ (function (_super) {
         return _this;
     }
     Case.prototype.copy = function () {
-        return new Case(this.lst, this.onNil, this.hdName, this.tlName, this.onCons);
+        return new Case(this.lst.copy(), this.onNil.copy(), this.hdName, this.tlName, this.onCons.copy());
     };
     Case.prototype.typeCheck = function (e) {
         var lTy = this.lst.typeCheck(e);
@@ -69,14 +69,16 @@ var Case = /** @class */ (function (_super) {
         }
         var lstval = this.lst.value;
         if (lstval instanceof ConsValue_1.NilValue) {
-            this.exec.expr = this.onNil.copy();
-            this.exec.env = e;
+            this.exec = {
+                expr: this.onNil,
+                env: e
+            };
             stack.pushFrame(this.exec.expr, this.exec.env);
         }
         else {
             var l = lstval;
             this.exec = {
-                expr: this.onCons.copy(),
+                expr: this.onCons,
                 env: e.with(this.hdName, l.head).with(this.tlName, l.tail)
             };
             stack.pushFrame(this.exec.expr, this.exec.env);

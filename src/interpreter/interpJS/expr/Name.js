@@ -14,6 +14,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Expr_1 = require("./Expr");
+var FixValue_1 = require("../exec/FixValue");
+var Fix_1 = require("./Fix");
 var Name = /** @class */ (function (_super) {
     __extends(Name, _super);
     function Name(x) {
@@ -25,15 +27,32 @@ var Name = /** @class */ (function (_super) {
         return this.evalFinish ? this.value.toString() : this.name;
     };
     Name.prototype.eval = function (e) {
-        return e.get(this.name);
+        var val = e.get(this.name);
+        if (val instanceof FixValue_1.FixValue) {
+            var fixval = val;
+            return (new Fix_1.Fix(fixval.expr.copy())).eval(fixval.env);
+        }
+        return val;
     };
     Name.prototype.oneStep = function (e, stack) {
-        this.value = e.get(this.name);
-        this.evalFinish = true;
-        if (this.value === null) {
-            this.reportError("name undefined : " + this.name);
+        if (this.exec) {
+            this.value = this.exec.expr.value;
+            this.evalFinish = true;
+            stack.popFrame();
+            return;
         }
-        stack.popFrame();
+        var val = e.get(this.name);
+        if (!(val instanceof FixValue_1.FixValue)) {
+            this.evalFinish = true;
+            this.value = val;
+            stack.popFrame();
+            return;
+        }
+        this.exec = {
+            expr: new Fix_1.Fix(val.expr),
+            env: val.env
+        };
+        stack.pushFrame(this.exec.expr, this.exec.env);
     };
     Name.prototype.typeCheck = function (e) {
         return e.get(this.name);

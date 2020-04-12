@@ -11,6 +11,7 @@ expr
 
     | MIN SP* expr                                          # e_uminus
     | OP_NOT SP* expr                                       # e_not
+    | FIX SP* expr                                          # e_fix
     | expr DOT INT                                          # e_tuple_proj
     | expr SP* op=(MUL|DIV|MOD) SP* expr                    # e_muldiv
     | expr SP* op=(ADD|SUB) SP* expr                        # e_addsub
@@ -77,6 +78,7 @@ CASE : 'case';
 CASE_OF : 'of';
 CASE_YIELD : '=>';
 CASE_OR : '|';
+FIX : 'fix';
 
 ADD : '+';
 SUB : '-';
