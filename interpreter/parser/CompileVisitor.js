@@ -19,6 +19,10 @@ CompileVisitor.prototype.constructor = CompileVisitor;
 CompileVisitor.prototype.usings = [];
 CompileVisitor.prototype.errors = [];
 
+// CompileVisitor.prototype.visit = function(ctx) {
+//   return TypedLambdaVisitor.visit(ctx)
+// }
+
 // Visit a parse tree produced by TypedLambdaParser#program.
 CompileVisitor.prototype.visitProgram = function(ctx) {
   var usings = ctx.using();

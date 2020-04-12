@@ -12,6 +12,8 @@ The product can be visited at the [Github Pages](https://wunschunreif.github.io/
 
 ### Demo
 
+(Please wait for the gif to load.)
+
 ![](./imgs/demo.gif)
 
 

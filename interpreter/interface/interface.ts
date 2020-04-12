@@ -3,6 +3,8 @@ var antlr4 = require('antlr4')
 
 const { ErrorListener, ProxyErrorListener, ConsoleErrorListener } = require('antlr4/error/ErrorListener');
 
+const {BailErrorStrategy} = require('antlr4/error/ErrorStrategy')
+
 var LambdaLexer = require('../parser/TypedLambdaLexer').TypedLambdaLexer
 var LambdaParser = require('../parser/TypedLambdaParser').TypedLambdaParser
 
@@ -40,17 +42,27 @@ export class InterpreterInterface {
         parser.addErrorListener(listener)
         parser.buildParseTrees = true;
 
+        var rawTokens = tokens.tokens.filter((x) => x.type >= 0 && x.channel == 0)
+
         var root = parser.program()
 
-        if(listener.msg.length !== 0) {
+        var usedTokens = root.getAllTokens()
+
+        if(listener.hasErrors) {
             onCompileError(listener.msg)
+            return false;
+        }
+
+        if(rawTokens.length !== usedTokens.length) {
+            onCompileError("Some tokens are ignored.")
             return false;
         }
 
         try {
             var visitor = new CompileVisitor()
-            this.compiledExpr = visitor.visit(root);
+            this.compiledExpr = root.accept(visitor)
         } catch(e) {
+            console.log(e)
             return false;
         }
 
@@ -85,8 +97,10 @@ export class InterpreterInterface {
 
 class LambdaErrorListener extends ErrorListener {
     msg : string = "";
+    hasErrors = false;
 
     syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
         this.msg += ("Syntax Error: at line " + line + " col " + column + " : " + msg + '\n');
+        this.hasErrors = true;
     }
 }

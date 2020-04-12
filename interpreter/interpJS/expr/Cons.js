@@ -14,35 +14,33 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Expr_1 = require("./Expr");
-var Type_1 = require("../typing/Type");
-var IntValue_1 = require("../exec/IntValue");
-var Arith = /** @class */ (function (_super) {
-    __extends(Arith, _super);
-    function Arith(l, r, op, opname) {
+var ListType_1 = require("../typing/ListType");
+var ConsValue_1 = require("../exec/ConsValue");
+var Cons = /** @class */ (function (_super) {
+    __extends(Cons, _super);
+    function Cons(l, r) {
         var _this = _super.call(this) || this;
         _this.lhs = l;
         _this.rhs = r;
-        _this.op = op;
-        _this.opString = opname;
         return _this;
     }
-    Arith.prototype.typeCheck = function (e) {
+    Cons.prototype.typeCheck = function (e) {
         var lTy = this.lhs.typeCheck(e);
         var rTy = this.rhs.typeCheck(e);
-        if (lTy && lTy instanceof Type_1.IntType) {
-            if (rTy && rTy instanceof Type_1.IntType) {
-                return new Type_1.IntType();
+        if (lTy && rTy) {
+            if (rTy instanceof ListType_1.ListType && lTy.toString() === rTy.elemT.toString()) {
+                return new ListType_1.ListType(rTy.elemT);
             }
         }
         this.reportError("type error");
         return null;
     };
-    Arith.prototype.eval = function (e) {
+    Cons.prototype.eval = function (e) {
         var l = this.lhs.eval(e);
         var r = this.rhs.eval(e);
-        return new IntValue_1.IntValue(this.op(l.n, r.n));
+        return new ConsValue_1.ConsValue(l, r);
     };
-    Arith.prototype.oneStep = function (e, stack) {
+    Cons.prototype.oneStep = function (e, stack) {
         if (this.lhs.evalFinish == false) {
             stack.pushFrame(this.lhs, e);
             return;
@@ -54,29 +52,22 @@ var Arith = /** @class */ (function (_super) {
         this.evalFinish = true;
         var l = this.lhs.value;
         var r = this.rhs.value;
-        this.value = new IntValue_1.IntValue(this.op(l.n, r.n));
+        this.value = new ConsValue_1.ConsValue(l, r);
         stack.popFrame();
     };
-    Arith.prototype.toString = function () {
-        return this.evalFinish ? this.value.toString() : ('(' + this.lhs.toString() + ') ' + this.opString + ' (' + this.rhs.toString() + ')');
+    Cons.prototype.toString = function () {
+        return this.evalFinish ? this.value.toString() : ('(' + this.lhs.toString() + ')::(' + this.rhs.toString() + ')');
     };
-    Arith.prototype.copy = function () {
-        return new Arith(this.lhs.copy(), this.rhs.copy(), this.op, this.opString);
+    Cons.prototype.copy = function () {
+        return new Cons(this.lhs.copy(), this.rhs.copy());
     };
-    Arith.OP_ADD = function (a, b) { return a + b; };
-    Arith.OP_SUB = function (a, b) { return a - b; };
-    Arith.OP_MUL = function (a, b) { return a * b; };
-    Arith.OP_DIV = function (a, b) { return parseInt(a / b + ''); };
-    Arith.OP_REM = function (a, b) { return a % b; };
-    return Arith;
+    return Cons;
 }(Expr_1.Expr));
-exports.Arith = Arith;
-// var expr = new Arith(
-//     new Arith(new IntLiteral(2), new IntLiteral(3), Arith.OP_MUL, '*'),
-//     new IntLiteral(5),
-//     Arith.OP_SUB,
-//     '-'
-// );
+exports.Cons = Cons;
+// var expr = new Cons(
+//     new IntLiteral(2),
+//     new Cons(new IntLiteral(3), new NilLiteral(new IntType))
+// )
 // console.log(expr.toString());
 // console.log(expr.typeCheck(new TypeEnv()).toString());
 // console.log(expr.eval(new Env()).toString());

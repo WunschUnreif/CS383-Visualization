@@ -5,7 +5,7 @@ var antlr4 = require('antlr4/index');
 // This class defines a complete generic visitor for a parse tree produced by TypedLambdaParser.
 
 function TypedLambdaVisitor() {
-  antlr4.tree.ParseTreeVisitor.call(this);
+	antlr4.tree.ParseTreeVisitor.call(this);
 	return this;
 }
 
@@ -14,7 +14,6 @@ TypedLambdaVisitor.prototype.constructor = TypedLambdaVisitor;
 
 // Visit a parse tree produced by TypedLambdaParser#program.
 TypedLambdaVisitor.prototype.visitProgram = function(ctx) {
-  console.log(ctx);
   return this.visitChildren(ctx);
 };
 

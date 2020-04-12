@@ -75,7 +75,7 @@ export class Arith extends Expr {
     static OP_ADD = (a : number, b : number) => a + b;
     static OP_SUB = (a : number, b : number) => a - b;
     static OP_MUL = (a : number, b : number) => a * b;
-    static OP_DIV = (a : number, b : number) => a / b;
+    static OP_DIV = (a : number, b : number) => parseInt(a / b + '');
     static OP_REM = (a : number, b : number) => a % b;
 }
 

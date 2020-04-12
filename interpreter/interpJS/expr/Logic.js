@@ -15,10 +15,10 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Expr_1 = require("./Expr");
 var Type_1 = require("../typing/Type");
-var IntValue_1 = require("../exec/IntValue");
-var Arith = /** @class */ (function (_super) {
-    __extends(Arith, _super);
-    function Arith(l, r, op, opname) {
+var BoolValue_1 = require("../exec/BoolValue");
+var Logic = /** @class */ (function (_super) {
+    __extends(Logic, _super);
+    function Logic(l, r, op, opname) {
         var _this = _super.call(this) || this;
         _this.lhs = l;
         _this.rhs = r;
@@ -26,23 +26,23 @@ var Arith = /** @class */ (function (_super) {
         _this.opString = opname;
         return _this;
     }
-    Arith.prototype.typeCheck = function (e) {
+    Logic.prototype.typeCheck = function (e) {
         var lTy = this.lhs.typeCheck(e);
         var rTy = this.rhs.typeCheck(e);
-        if (lTy && lTy instanceof Type_1.IntType) {
-            if (rTy && rTy instanceof Type_1.IntType) {
-                return new Type_1.IntType();
+        if (lTy && lTy instanceof Type_1.BoolType) {
+            if (rTy && rTy instanceof Type_1.BoolType) {
+                return new Type_1.BoolType();
             }
         }
         this.reportError("type error");
         return null;
     };
-    Arith.prototype.eval = function (e) {
+    Logic.prototype.eval = function (e) {
         var l = this.lhs.eval(e);
         var r = this.rhs.eval(e);
-        return new IntValue_1.IntValue(this.op(l.n, r.n));
+        return new BoolValue_1.BoolValue(this.op(l.b, r.b));
     };
-    Arith.prototype.oneStep = function (e, stack) {
+    Logic.prototype.oneStep = function (e, stack) {
         if (this.lhs.evalFinish == false) {
             stack.pushFrame(this.lhs, e);
             return;
@@ -52,31 +52,19 @@ var Arith = /** @class */ (function (_super) {
             return;
         }
         this.evalFinish = true;
-        var l = this.lhs.value;
-        var r = this.rhs.value;
-        this.value = new IntValue_1.IntValue(this.op(l.n, r.n));
+        var l = this.lhs.eval(e);
+        var r = this.rhs.eval(e);
+        this.value = new BoolValue_1.BoolValue(this.op(l.b, r.b));
         stack.popFrame();
     };
-    Arith.prototype.toString = function () {
+    Logic.prototype.toString = function () {
         return this.evalFinish ? this.value.toString() : ('(' + this.lhs.toString() + ') ' + this.opString + ' (' + this.rhs.toString() + ')');
     };
-    Arith.prototype.copy = function () {
-        return new Arith(this.lhs.copy(), this.rhs.copy(), this.op, this.opString);
+    Logic.prototype.copy = function () {
+        return new Logic(this.lhs.copy(), this.rhs.copy(), this.op, this.opString);
     };
-    Arith.OP_ADD = function (a, b) { return a + b; };
-    Arith.OP_SUB = function (a, b) { return a - b; };
-    Arith.OP_MUL = function (a, b) { return a * b; };
-    Arith.OP_DIV = function (a, b) { return parseInt(a / b + ''); };
-    Arith.OP_REM = function (a, b) { return a % b; };
-    return Arith;
+    Logic.OP_OR = function (a, b) { return a || b; };
+    Logic.OP_AND = function (a, b) { return a && b; };
+    return Logic;
 }(Expr_1.Expr));
-exports.Arith = Arith;
-// var expr = new Arith(
-//     new Arith(new IntLiteral(2), new IntLiteral(3), Arith.OP_MUL, '*'),
-//     new IntLiteral(5),
-//     Arith.OP_SUB,
-//     '-'
-// );
-// console.log(expr.toString());
-// console.log(expr.typeCheck(new TypeEnv()).toString());
-// console.log(expr.eval(new Env()).toString());
+exports.Logic = Logic;
